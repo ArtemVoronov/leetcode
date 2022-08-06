@@ -1,28 +1,16 @@
 package isanagram
 
-func isAnagram(s1 string, s2 string) bool {
-	m := make(map[string]int)
-
-	l1 := len(s1)
-	l2 := len(s2)
-
-	if l1 != l2 {
+func isAnagram(s string, t string) bool {
+	if len(s) != len(t) {
 		return false
 	}
+	return getHash(s) == getHash(t)
+}
 
-	for _, c := range s1 {
-		m[string(c)] += 1
+func getHash(s string) [26]int {
+	var h [26]int
+	for _, c := range s {
+		h[c-'a'] += 1
 	}
-
-	for _, c := range s2 {
-		m[string(c)] -= 1
-	}
-
-	for k := range m {
-		if m[k] != 0 {
-			return false
-		}
-	}
-
-	return true
+	return h
 }
